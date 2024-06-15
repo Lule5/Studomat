@@ -38,11 +38,8 @@ public class LoginController implements IChangeScene{
     public void handleLoginButtonAction(ActionEvent event) {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
-        System.out.println(username);
-        System.out.println(password);
 
         if (validateLogin(username, password)) {
-
             changeToScene(event);
         } else {
             tfUsername.clear();

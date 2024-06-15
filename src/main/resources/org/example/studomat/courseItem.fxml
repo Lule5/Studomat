@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox cacheShape="false" centerShape="false" onMouseClicked="#setCourseData" prefHeight="410.0" prefWidth="694.0" scaleShape="false" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.studomat.CourseItemController">
+<VBox cacheShape="false" centerShape="false" prefHeight="410.0" prefWidth="694.0" scaleShape="false" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.studomat.CourseItemController">
    <children>
       <AnchorPane prefHeight="183.0" prefWidth="694.0" style="-fx-background-color: #5a9ced; -fx-border-color: black;">
          <children>
