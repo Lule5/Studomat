@@ -1,4 +1,4 @@
-import org.example.studomat.Person;
+package org.example.studomat;
 
 public class Student extends Person {
     public Student(String name, String surname, String OIB,String JMBAG, String username, String password) throws Exception {
