@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox cacheShape="false" centerShape="false" onMouseClicked="#setCourseData" prefHeight="410.0" prefWidth="694.0" scaleShape="false" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.studomat.CourseItemController">
+   <children>
+      <AnchorPane prefHeight="183.0" prefWidth="694.0" style="-fx-background-color: #5a9ced; -fx-border-color: black;">
+         <children>
+            <Label fx:id="lblCourse" layoutX="210.0" layoutY="15.0" prefHeight="26.0" prefWidth="358.0" text="Algoritmi i programiranje" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="142.0" prefWidth="694.0" style="-fx-border-color: transparent black black black;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="134.0" style="-fx-border-color: transparent black transparent transparent; -fx-background-color: #5a9ced;">
+               <children>
+                  <Label layoutX="41.0" layoutY="23.0" text="Description:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="57.0" prefWidth="466.0">
+               <children>
+                  <Label fx:id="lblDescription" layoutX="14.0" layoutY="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="146.0" prefWidth="694.0" style="-fx-border-color: transparent black black black;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="134.0" style="-fx-border-color: transparent black transparent transparent; -fx-background-color: #5a9ced;">
+               <children>
+                  <Label layoutX="41.0" layoutY="23.0" text="Professor:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="57.0" prefWidth="466.0">
+               <children>
+                  <Label fx:id="lblProfessor" layoutX="14.0" layoutY="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="144.0" prefWidth="694.0" style="-fx-border-color: transparent black black black;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="134.0" style="-fx-border-color: transparent black transparent transparent; -fx-background-color: #5a9ced;">
+               <children>
+                  <Label layoutX="41.0" layoutY="23.0" text="ECTS:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="57.0" prefWidth="466.0">
+               <children>
+                  <Label fx:id="lblECTS" layoutX="14.0" layoutY="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="141.0" prefWidth="694.0" style="-fx-border-color: transparent black black black;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="134.0" style="-fx-border-color: transparent black transparent transparent; -fx-background-color: #5a9ced;">
+               <children>
+                  <Label layoutX="41.0" layoutY="23.0" text="Semester:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="57.0" prefWidth="466.0">
+               <children>
+                  <Label fx:id="lblSemester" layoutX="14.0" layoutY="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="149.0" prefWidth="694.0" style="-fx-border-color: transparent black black black;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="134.0" style="-fx-border-color: transparent black transparent transparent; -fx-background-color: #5a9ced;">
+               <children>
+                  <Label layoutX="41.0" layoutY="23.0" text="Grade:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="68.0" prefWidth="465.0">
+               <children>
+                  <Label fx:id="lblGrade" layoutX="14.0" layoutY="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

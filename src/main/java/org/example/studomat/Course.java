@@ -1,5 +1,10 @@
 package org.example.studomat;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Course {
     public Course(String name, String description, int semester, int ECTS, int grade, int idProfessor) {
         this.name = name;
@@ -64,6 +69,28 @@ public class Course {
 
     public void setIdProfessor(int idProfessor) {
         this.idProfessor = idProfessor;
+    }
+    public Professor getProfessor(int id){
+        String query = "SELECT * FROM professors WHERE id = ?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String name = resultSet.getString("Name");
+                String surname = resultSet.getString("Surname");
+                String OIB = resultSet.getString("OIB");
+                String username = resultSet.getString("Username");
+                String password = resultSet.getString("Password");
+
+                return new Professor(name, surname, OIB,username,password);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     private String name;

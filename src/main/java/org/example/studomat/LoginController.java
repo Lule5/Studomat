@@ -75,13 +75,14 @@ public class LoginController implements IChangeScene{
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 600, 400);
+            scene = new Scene(fxmlLoader.load(), 786, 671);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Studomat");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();}
 
 }

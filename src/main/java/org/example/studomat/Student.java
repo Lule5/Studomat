@@ -18,6 +18,15 @@ public class Student extends Person {
         }
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    private int ID;
     private String JMBAG;
 
 
