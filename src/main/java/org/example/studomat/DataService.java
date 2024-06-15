@@ -2,7 +2,7 @@ package org.example.studomat;
 
 public class DataService {
     private static DataService instance = new DataService();
-    private String userData;
+    private int userData;
 
     private DataService() {}
 
@@ -10,11 +10,11 @@ public class DataService {
         return instance;
     }
 
-    public String getUserData() {
+    public int getUserData() {
         return userData;
     }
 
-    public void setUserData(String userData) {
+    public void setUserData(int userData) {
         this.userData = userData;
     }
 }

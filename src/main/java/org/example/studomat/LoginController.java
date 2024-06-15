@@ -1,17 +1,24 @@
 package org.example.studomat;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginController {
+public class LoginController implements IChangeScene{
 
     @FXML
     private Button btnLogin;
@@ -28,14 +35,15 @@ public class LoginController {
     @FXML
     private TextField tfUsername;
     @FXML
-    public void handleLoginButtonAction() {
+    public void handleLoginButtonAction(ActionEvent event) {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
         System.out.println(username);
         System.out.println(password);
 
         if (validateLogin(username, password)) {
-            System.out.println("Login successful!");
+
+            changeToScene(event);
         } else {
             tfUsername.clear();
             tfPassword.clear();
@@ -51,14 +59,30 @@ public class LoginController {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
-
-
+             if(resultSet.next()) {
+                 DataService.getInstance().setUserData(resultSet.getInt("ID"));
+                 return true;
+             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+
         }
+        return false;
+    }
 
+    @Override
+    public void changeToScene(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 600, 400);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Studomat");
+        stage.setScene(scene);
+        stage.show();}
 
 }
-}
+
