@@ -1,6 +1,10 @@
 package org.example.studomat;
 
-public class Student extends Person {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Student extends Person implements ICrud {
     public Student(String name, String surname, String OIB,String JMBAG, String username, String password) throws Exception {
         super(name, surname, OIB, username, password);
         setJMBAG(JMBAG);
@@ -17,17 +21,31 @@ public class Student extends Person {
             throw new Exception("Invalid JMBAG");
         }
     }
+    @Override
+    public void create() {
 
-    public int getID() {
-        return ID;
+
+        String query = "INSERT INTO students (name, surname,OIB,JMBAG, username, password) VALUES (?,?,?, ?, ?, ?)";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, this.getName());
+            preparedStatement.setString(2, this.getSurname());
+            preparedStatement.setString(3, this.getOIB());
+            preparedStatement.setString(4, this.getJMBAG());
+            preparedStatement.setString(5, this.getUsername());
+            preparedStatement.setString(6, this.getPassword());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error inserting student into database", e);
+        }
+
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
-    private int ID;
     private String JMBAG;
+
 
 
 }

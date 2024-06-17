@@ -57,10 +57,9 @@ public class LoginController implements IChangeScene{
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
              if(resultSet.next()) {
-                 DataService.getInstance().setUserData(resultSet.getInt("ID"));
-                 return true;
+                return true;
              }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
@@ -72,7 +71,7 @@ public class LoginController implements IChangeScene{
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 786, 671);
+            scene = new Scene(fxmlLoader.load(), 700, 500);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

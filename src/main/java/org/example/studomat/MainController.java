@@ -2,66 +2,39 @@ package org.example.studomat;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Pane;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainController {
 
     @FXML
-    private ListView<Pane> coursesListView;
+    private AnchorPane contentBox;
 
-    public void initialize() {
-        List<Course> courses = fetchCoursesFromDatabase();
+    @FXML
+    private Hyperlink hlAddCourse;
 
-        for (Course course : courses) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("courseItem.fxml"));
-                Pane listItem = loader.load();
+    @FXML
+    private Hyperlink hlAddProfessor;
 
-                CourseItemController controller = loader.getController();
-                controller.setCourseData(course);
+    @FXML
+    private Hyperlink hlAddStudent;
 
-                coursesListView.getItems().add(listItem);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private List<Course> fetchCoursesFromDatabase() {
-        String query = "SELECT * FROM courses";
-        List<Course> courses = new ArrayList<>();
-
+    @FXML
+    private Label lblUser;
+    @FXML
+    public void addStudent(){
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudent.fxml"));
+            AnchorPane subScene = loader.load();
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(subScene);
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String name = resultSet.getString("Name");
-                String description = resultSet.getString("Description");
-                int semester = resultSet.getInt("Semester");
-                int ects = resultSet.getInt("ECTS");
-                int grade = resultSet.getInt("Grade");
-                int idProfessor = resultSet.getInt("IdProfessor");
-
-                Course course = new Course(name, description, semester, ects, grade, idProfessor);
-                courses.add(course);
-            }
-
-        } catch (SQLException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return courses;
     }
 }
