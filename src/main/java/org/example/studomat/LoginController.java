@@ -71,7 +71,7 @@ public class LoginController implements IChangeScene{
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 700, 500);
+            scene = new Scene(fxmlLoader.load(), 650, 500);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

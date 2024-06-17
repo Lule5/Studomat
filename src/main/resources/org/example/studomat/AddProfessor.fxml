@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.studomat.AddProfessorController">
+   <children>
+      <Label layoutX="34.0" layoutY="65.0" text="Name:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="14.0" text="Professor">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="113.0" text="Surname:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="157.0" text="OIB:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="210.0" text="Username:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="270.0" text="Password:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfName" layoutX="106.0" layoutY="62.0" />
+      <TextField fx:id="tfSurname" layoutX="106.0" layoutY="110.0" />
+      <TextField fx:id="tfOIB" layoutX="106.0" layoutY="154.0" />
+      <TextField fx:id="tfUsername" layoutX="106.0" layoutY="207.0" />
+      <PasswordField fx:id="tfPassword" layoutX="107.0" layoutY="268.0" />
+      <Label fx:id="lblError" layoutX="83.0" layoutY="308.0" textFill="#fa1111">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAddProfessor" layoutX="113.0" layoutY="343.0" mnemonicParsing="false" onAction="#checkForm" text="Add Professor" />
+   </children>
+</AnchorPane>
