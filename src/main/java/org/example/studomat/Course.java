@@ -15,6 +15,24 @@ public class Course implements ICrud {
         setIdProfessor(idProfessor);
 
     }
+    public Course(int id,String name, String description, int semester, int ECTS, int grade, int idProfessor) throws Exception {
+        setId(id);
+        setName(name);
+        setDescription(description);
+        setSemester(semester);
+        setECTS(ECTS);
+        setGrade(grade);
+        setIdProfessor(idProfessor);
+
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 
     public String getName() {
         return name;
@@ -100,6 +118,7 @@ public class Course implements ICrud {
         }
 
     }
+    private int Id;
     private String name;
     private String description;
     private int semester;

@@ -9,6 +9,11 @@ public class Student extends Person implements ICrud {
         super(name, surname, OIB, username, password);
         setJMBAG(JMBAG);
     }
+    public Student(int id,String name, String surname, String OIB,String JMBAG, String username, String password) throws Exception {
+        super(name, surname, OIB, username, password);
+        setJMBAG(JMBAG);
+        setId(id);
+    }
 
     public String getJMBAG() {
         return JMBAG;
@@ -21,6 +26,15 @@ public class Student extends Person implements ICrud {
             throw new Exception("Invalid JMBAG");
         }
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
     @Override
     public void create() {
 
@@ -45,7 +59,7 @@ public class Student extends Person implements ICrud {
 
 
     private String JMBAG;
-
+    private int Id;
 
 
 }
