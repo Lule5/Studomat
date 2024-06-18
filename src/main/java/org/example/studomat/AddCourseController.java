@@ -98,7 +98,6 @@ public class AddCourseController {
         int ECTS = comBoxECTS.getValue();
         int grade = comBoxGrade.getValue();
         int idProfessor = comBoxProfessor.getValue().getId();
-        System.out.println(name+" "+description+" "+semester+" "+ECTS+" "+grade+" "+idProfessor);
 
         try {
             Course course = new Course(
