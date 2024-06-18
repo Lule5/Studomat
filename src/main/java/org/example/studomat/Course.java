@@ -5,29 +5,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Course {
-    public Course(String name, String description, int semester, int ECTS, int grade, int idProfessor) {
-        this.name = name;
-        this.description = description;
-        this.semester = semester;
-        this.ECTS = ECTS;
-        this.grade = grade;
-        this.idProfessor = idProfessor;
-    }
-    public Course(String name, String description, int semester, int ECTS, int idProfessor) {
-        this.name = name;
-        this.description = description;
-        this.semester = semester;
-        this.ECTS = ECTS;
-        this.grade = null;
-        this.idProfessor = idProfessor;
+public class Course implements ICrud {
+    public Course(String name, String description, int semester, int ECTS, int grade, int idProfessor) throws Exception {
+        setName(name);
+        setDescription(description);
+        setSemester(semester);
+        setECTS(ECTS);
+        setGrade(grade);
+        setIdProfessor(idProfessor);
+
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws Exception {
+        if(name == null || name.trim().isEmpty()){
+            throw new Exception("Name is required!");
+        }
+        if(name.length()>35) {
+            throw new Exception("Name is too long (max 35)");
+        }
         this.name = name;
     }
 
@@ -35,7 +34,10 @@ public class Course {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws Exception {
+        if(description.length()>70) {
+            throw new Exception("description is too long (max 70)");
+        }
         this.description = description;
     }
 
@@ -43,8 +45,13 @@ public class Course {
         return semester;
     }
 
-    public void setSemester(int semester) {
-        this.semester = semester;
+    public void setSemester(int semester) throws Exception {
+        if(semester>0 && semester<=6) {
+            this.semester = semester;
+        }else{
+            throw new Exception("Invalid semester");
+        }
+
     }
 
     public int getECTS() {
@@ -55,12 +62,14 @@ public class Course {
         this.ECTS = ECTS;
     }
 
-    public Integer getGrade() {
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setGrade(int grade) {
+        if(grade >= 0 && grade <= 5) {
+            this.grade = grade;
+        }
     }
 
     public int getIdProfessor() {
@@ -70,33 +79,33 @@ public class Course {
     public void setIdProfessor(int idProfessor) {
         this.idProfessor = idProfessor;
     }
-    public Professor getProfessor(int id){
-        String query = "SELECT * FROM professors WHERE id = ?";
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+    @Override
+    public void create() {
+        String query = "INSERT INTO courses (name, description, semester, ECTS, grade, IdProfessor) VALUES (?, ?, ?, ?, ?, ?)";
 
-            if (resultSet.next()) {
-                String name = resultSet.getString("Name");
-                String surname = resultSet.getString("Surname");
-                String OIB = resultSet.getString("OIB");
-                String username = resultSet.getString("Username");
-                String password = resultSet.getString("Password");
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                return new Professor(name, surname, OIB,username,password);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            preparedStatement.setString(1, this.getName());
+            preparedStatement.setString(2, this.getDescription());
+            preparedStatement.setInt(3, this.getSemester());
+            preparedStatement.setInt(4, this.getECTS());
+            preparedStatement.setInt(5, this.getGrade());
+            preparedStatement.setInt(6, this.getIdProfessor());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            throw new RuntimeException("Error inserting course into database", e);
         }
-        return null;
-    }
 
+    }
     private String name;
     private String description;
     private int semester;
     private int ECTS;
-    private Integer grade;
+    private int grade;
     private int idProfessor;
+
+
 }

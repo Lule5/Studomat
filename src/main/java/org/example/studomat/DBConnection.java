@@ -2,6 +2,7 @@ package org.example.studomat;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
     private static DBConnection instance=null;
@@ -21,8 +22,10 @@ public class DBConnection {
         }
     }
 
-    public static DBConnection getInstance() {
+    public static DBConnection getInstance() throws SQLException {
         if (instance == null) {
+            instance = new DBConnection();
+        }else if (instance.getConnection().isClosed()) {
             instance = new DBConnection();
         }
         return instance;

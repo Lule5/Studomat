@@ -8,10 +8,21 @@ public class Professor extends Person implements ICrud{
     public Professor(String name, String surname, String OIB, String username, String password) throws Exception {
         super(name, surname, OIB, username, password);
     }
+    public Professor(int id,String name, String surname, String OIB, String username, String password) throws Exception {
+        super(name, surname, OIB, username, password);
+        setId(id);
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
     @Override
     public void create() {
-
-
         String query = "INSERT INTO professors (name, surname,OIB, username, password) VALUES (?,?, ?, ?, ?)";
 
         try {
@@ -26,8 +37,13 @@ public class Professor extends Person implements ICrud{
         } catch (SQLException e) {
             throw new RuntimeException("Error inserting professor into database", e);
         }
-
     }
+    @Override
+    public String toString(){
+
+        return getName() + " " + getSurname();
+    }
+    private int Id;
 
 
 }

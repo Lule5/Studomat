@@ -46,4 +46,16 @@ public class MainController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void AddCourse(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+            AnchorPane subScene = loader.load();
+            contentBox.getChildren().clear();
+            contentBox.getChildren().add(subScene);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

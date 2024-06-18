@@ -40,15 +40,16 @@ public class AddProfessorController {
                     tfPassword.getText()
             );
             professor.create();
+            lblError.setText("Professor successfully added");
+            tfName.clear();
+            tfSurname.clear();
+            tfOIB.clear();
+            tfUsername.clear();
+            tfPassword.clear();
         } catch (Exception e) {
             lblError.setText(e.getMessage());
         }
-        lblError.setText("Professor successfully added");
-        tfName.clear();
-        tfSurname.clear();
-        tfOIB.clear();
-        tfUsername.clear();
-        tfPassword.clear();
+
 
     }
 

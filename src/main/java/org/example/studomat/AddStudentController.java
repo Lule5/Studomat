@@ -34,26 +34,28 @@ public class AddStudentController {
 
     @FXML
     public void checkForm(){
-        try {
-            Student student = new Student(
-                    tfName.getText(),
-                    tfSurname.getText(),
-                    tfOIB.getText(),
-                    tfJMBAG.getText(),
-                    tfUsername.getText(),
-                    tfPassword.getText()
-            );
-            student.create();
-        } catch (Exception e) {
-            lblError.setText(e.getMessage());
-        }
-        lblError.setText("Student successfully added");
-        tfName.clear();
-        tfSurname.clear();
-        tfOIB.clear();
-        tfJMBAG.clear();
-        tfUsername.clear();
-        tfPassword.clear();
+
+       try {
+           Student student = new Student(
+                   tfName.getText(),
+                   tfSurname.getText(),
+                   tfOIB.getText(),
+                   tfJMBAG.getText(),
+                   tfUsername.getText(),
+                   tfPassword.getText()
+           );
+           student.create();
+           lblError.setText("Student successfully added");
+           tfName.clear();
+           tfSurname.clear();
+           tfOIB.clear();
+           tfJMBAG.clear();
+           tfUsername.clear();
+           tfPassword.clear();
+       } catch (Exception e) {
+           lblError.setText(e.getMessage());
+       }
+
 
     }
 
