@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="522.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.studomat.AddCourseController">
    <children>
-      <Label layoutX="114.0" layoutY="14.0" text="Course">
+      <Label layoutX="114.0" layoutY="14.0" text="Course" textFill="#19467d">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -56,6 +56,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddCourse" layoutX="137.0" layoutY="455.0" mnemonicParsing="false" onAction="#checkForm" text="Add course" />
+      <Button fx:id="btnAddCourse" layoutX="137.0" layoutY="455.0" mnemonicParsing="false" onAction="#checkForm" style="-fx-background-color: #19467d;" text="Add course" textFill="WHITE" />
    </children>
 </AnchorPane>

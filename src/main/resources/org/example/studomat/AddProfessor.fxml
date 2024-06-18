@@ -14,7 +14,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="107.0" layoutY="14.0" text="Professor">
+      <Label layoutX="107.0" layoutY="14.0" text="Professor" textFill="#19467d">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -49,6 +49,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddProfessor" layoutX="113.0" layoutY="343.0" mnemonicParsing="false" onAction="#checkForm" text="Add Professor" />
+      <Button fx:id="btnAddProfessor" layoutX="113.0" layoutY="343.0" mnemonicParsing="false" onAction="#checkForm" style="-fx-background-color: #19467d;" text="Add Professor" textFill="WHITE" />
    </children>
 </AnchorPane>
