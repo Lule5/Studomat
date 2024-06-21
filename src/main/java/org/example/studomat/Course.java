@@ -205,7 +205,7 @@ public class Course implements ICrud<Course> {
             String OIB = resultSet.getString("OIB");
             String username = resultSet.getString("Username");
             String password = resultSet.getString("Password");
-            Professor professor = new Professor(name,surname,OIB,username,password);
+            Professor professor = new Professor(this.getIdProfessor(),name,surname,OIB,username,password);
             return professor;
         } catch (Exception e) {
             throw new RuntimeException(e);

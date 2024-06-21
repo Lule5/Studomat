@@ -56,7 +56,6 @@ public class CourseListController {
     }
     public void selectedCourse(){
         lblError.setText("");
-        Professor professor = new Professor();
         Course selectedCourse = listViiew.getSelectionModel().getSelectedItem();
         lblId.setText(String.valueOf(selectedCourse.getId()));
         tfName.setText(selectedCourse.getName());

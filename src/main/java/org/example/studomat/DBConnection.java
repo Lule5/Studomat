@@ -25,7 +25,7 @@ public class DBConnection {
     public static DBConnection getInstance() throws SQLException {
         if (instance == null) {
             instance = new DBConnection();
-        }else if (instance.getConnection().isClosed()) {
+        } else if (instance.getConnection().isClosed()) {
             instance = new DBConnection();
         }
         return instance;
