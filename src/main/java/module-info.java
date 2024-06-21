@@ -12,6 +12,7 @@ module org.example.studomat {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires com.fasterxml.jackson.databind;
 
     opens org.example.studomat to javafx.fxml;
     exports org.example.studomat;

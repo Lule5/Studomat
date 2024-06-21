@@ -5,4 +5,6 @@ import javafx.collections.ObservableList;
 public interface ICrud<T> {
     public void create();
     public  ObservableList<T> all();
+    public void update();
+    public void delete();
 }

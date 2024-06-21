@@ -149,6 +149,16 @@ public class Course implements ICrud<Course> {
         return courses;
     }
 
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
     private int Id;
     private String name;
     private String description;

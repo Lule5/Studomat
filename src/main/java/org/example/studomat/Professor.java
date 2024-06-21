@@ -71,6 +71,16 @@ public class Professor extends Person implements ICrud<Professor>{
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
     public String toString(){
 
         return getName() + " " + getSurname();

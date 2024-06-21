@@ -1,8 +1,10 @@
 package org.example.studomat;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,6 +90,50 @@ public class Student extends Person implements ICrud<Student> {
 
         return students;
 
+    }
+
+    @Override
+    public void update() {
+        String query = "UPDATE students SET name=?, surname=?, OIB=?, JMBAG=?, username=?, password=? WHERE id=?";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, this.getName());
+            preparedStatement.setString(2, this.getSurname());
+            preparedStatement.setString(3, this.getOIB());
+            preparedStatement.setString(4, this.getJMBAG());
+            preparedStatement.setString(5, this.getUsername());
+            preparedStatement.setString(6, this.getPassword());
+            preparedStatement.setInt(7, this.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating student in database", e);
+        }
+    }
+
+    @Override
+    public void delete() {
+        String query = "DELETE FROM students WHERE id=?";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, this.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting student from database", e);
+        }
+    }
+    public void serializeToJson(ObservableList<Student> students, String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File(filePath), students);
+            System.out.println("Studenata je serijalizirano u JSON datoteku: " + filePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Error serializing students to JSON", e);
+        }
     }
 
     @Override
