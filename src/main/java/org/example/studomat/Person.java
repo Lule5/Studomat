@@ -1,6 +1,7 @@
 package org.example.studomat;
 
 public abstract class Person {
+    public Person(){}
     public Person(String name, String surname, String OIB, String username, String password) throws Exception {
         setName(name);
         setSurname(surname);

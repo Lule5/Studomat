@@ -1,11 +1,14 @@
 package org.example.studomat;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Course implements ICrud {
+public class Course implements ICrud<Course> {
     public Course(String name, String description, int semester, int ECTS, int grade, int idProfessor) throws Exception {
         setName(name);
         setDescription(description);
@@ -118,6 +121,34 @@ public class Course implements ICrud {
         }
 
     }
+
+    @Override
+    public ObservableList<Course> all() {
+        ObservableList<Course> courses = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM courses";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id =resultSet.getInt("ID");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("Description");
+                int semester = resultSet.getInt("Semester");
+                int ECTS = resultSet.getInt("ECTS");
+                int grade = resultSet.getInt("Grade");
+                int idProfessor = resultSet.getInt("IdProfessor");
+                courses.add(new Course(id,name,description,semester,ECTS,grade,idProfessor));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return courses;
+    }
+
     private int Id;
     private String name;
     private String description;

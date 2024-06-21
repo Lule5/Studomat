@@ -1,5 +1,8 @@
 package org.example.studomat;
 
-public interface ICrud {
+import javafx.collections.ObservableList;
+
+public interface ICrud<T> {
     public void create();
+    public  ObservableList<T> all();
 }

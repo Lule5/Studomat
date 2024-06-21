@@ -1,10 +1,15 @@
 package org.example.studomat;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Student extends Person implements ICrud {
+public class Student extends Person implements ICrud<Student> {
+    public Student(){}
     public Student(String name, String surname, String OIB,String JMBAG, String username, String password) throws Exception {
         super(name, surname, OIB, username, password);
         setJMBAG(JMBAG);
@@ -57,6 +62,38 @@ public class Student extends Person implements ICrud {
 
     }
 
+    @Override
+    public  ObservableList<Student> all() {
+        ObservableList<Student> students = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM students";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id =resultSet.getInt("ID");
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String OIB = resultSet.getString("OIB");
+                String JMBAG = resultSet.getString("JMBAG");
+                String username = resultSet.getString("Username");
+                String password = resultSet.getString("Password");
+                students.add(new Student(id,name, surname,OIB,JMBAG,username,password));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return students;
+
+    }
+
+    @Override
+    public String toString() {
+        return this.getName()+" " +this.getSurname()+" "+this.getOIB();
+    }
 
     private String JMBAG;
     private int Id;

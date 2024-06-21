@@ -1,10 +1,15 @@
 package org.example.studomat;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Professor extends Person implements ICrud{
+public class Professor extends Person implements ICrud<Professor>{
+    public Professor(){}
     public Professor(String name, String surname, String OIB, String username, String password) throws Exception {
         super(name, surname, OIB, username, password);
     }
@@ -38,6 +43,33 @@ public class Professor extends Person implements ICrud{
             throw new RuntimeException("Error inserting professor into database", e);
         }
     }
+
+    @Override
+    public ObservableList<Professor> all() {
+        ObservableList<Professor> professors = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM professors";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id =resultSet.getInt("ID");
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String OIB = resultSet.getString("OIB");
+                String username = resultSet.getString("Username");
+                String password = resultSet.getString("Password");
+                professors.add(new Professor(id,name, surname,OIB,username,password));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return professors;
+    }
+
     @Override
     public String toString(){
 

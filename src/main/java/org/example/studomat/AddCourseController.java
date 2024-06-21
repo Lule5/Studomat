@@ -43,10 +43,11 @@ public class AddCourseController {
 
     @FXML
     public void initialize() {
+        Professor professor = new Professor();
         comBoxGrade.setItems(Grades());
         comBoxECTS.setItems(ECTS());
         comBoxSemester.setItems(Semester());
-        comBoxProfessor.setItems(Professor());
+        comBoxProfessor.setItems(professor.all());
 
     }
     private ObservableList<Integer> Grades(){
@@ -66,30 +67,7 @@ public class AddCourseController {
         semester.addAll(1, 2, 3,4,5,6);
         return semester;
     }
-    public ObservableList<Professor> Professor() {
-        ObservableList<Professor> professors = FXCollections.observableArrayList();
 
-        String query = "SELECT * FROM professors";
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
-            while (resultSet.next()) {
-                int id =resultSet.getInt("ID");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String OIB = resultSet.getString("OIB");
-                String username = resultSet.getString("Username");
-                String password = resultSet.getString("Password");
-                professors.add(new Professor(id,name, surname,OIB,username,password));
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return professors;
-    }
     @FXML
     public void checkForm(){
         String name = tfName.getText();
