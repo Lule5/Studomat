@@ -55,6 +55,7 @@ public class StudentListController {
     }
 
     public void selectedStudent(){
+        lblError.setText("");
         Student selectedStudent = listView.getSelectionModel().getSelectedItem();
         lblId.setText(String.valueOf(selectedStudent.getId()));
         tfName.setText(selectedStudent.getName());

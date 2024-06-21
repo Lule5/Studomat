@@ -1,7 +1,9 @@
 package org.example.studomat;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -12,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController implements IChangeScene {
 
     @FXML
     private AnchorPane contentBox;
@@ -50,7 +52,7 @@ public class MainController {
         }
     }
     @FXML
-    public void AddCourse(){
+    public void addCourse(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
             AnchorPane subScene = loader.load();
@@ -81,6 +83,26 @@ public class MainController {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+    @FXML
+    public void CoursesList() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CourseList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),800, 500);
+        stage.setTitle("Courses");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
 
+    @Override
+    public void changeToScene(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

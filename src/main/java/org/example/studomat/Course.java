@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Course implements ICrud<Course> {
+    public Course(){  }
     public Course(String name, String description, int semester, int ECTS, int grade, int idProfessor) throws Exception {
         setName(name);
         setDescription(description);
@@ -190,6 +191,29 @@ public class Course implements ICrud<Course> {
         } catch (IOException e) {
             throw new RuntimeException("Error serializing csourses to JSON", e);
         }
+    }
+    public Professor getProfessorById(){
+        String query = "SELECT * FROM professors WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, this.getIdProfessor());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            String name = resultSet.getString("name");
+            String surname = resultSet.getString("surname");
+            String OIB = resultSet.getString("OIB");
+            String username = resultSet.getString("Username");
+            String password = resultSet.getString("Password");
+            Professor professor = new Professor(name,surname,OIB,username,password);
+            return professor;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public String toString() {
+        return this.getName();
     }
 
     private int Id;

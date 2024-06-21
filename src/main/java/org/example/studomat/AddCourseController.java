@@ -50,19 +50,19 @@ public class AddCourseController {
         comBoxProfessor.setItems(professor.all());
 
     }
-    private ObservableList<Integer> Grades(){
+    public ObservableList<Integer> Grades(){
         ObservableList<Integer> grades = FXCollections.observableArrayList();
         grades.addAll(0,1, 2, 3,4,5);
         return grades;
 
     }
-    private ObservableList<Integer> ECTS(){
+    public ObservableList<Integer> ECTS(){
         ObservableList<Integer> ECTS = FXCollections.observableArrayList();
         ECTS.addAll(1, 2, 3,4,5,6,7,8,9,10);
         return ECTS;
 
     }
-    private ObservableList<Integer> Semester(){
+    public ObservableList<Integer> Semester(){
         ObservableList<Integer> semester = FXCollections.observableArrayList();
         semester.addAll(1, 2, 3,4,5,6);
         return semester;

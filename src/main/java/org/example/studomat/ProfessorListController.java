@@ -50,6 +50,7 @@ public class ProfessorListController {
     }
 
     public void selectedProfessor(){
+        lblError.setText("");
         Professor selectedProfessor = listView.getSelectionModel().getSelectedItem();
         lblId.setText(String.valueOf(selectedProfessor.getId()));
         tfName.setText(selectedProfessor.getName());
