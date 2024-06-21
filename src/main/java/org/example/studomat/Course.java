@@ -1,8 +1,11 @@
 package org.example.studomat;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -151,12 +154,42 @@ public class Course implements ICrud<Course> {
 
     @Override
     public void update() {
+        String query = "UPDATE courses SET name=?, description=?, semester=?, ECTS=?, grade=?, IdProfessor=? WHERE id=?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
+            preparedStatement.setString(1, this.getName());
+            preparedStatement.setString(2, this.getDescription());
+            preparedStatement.setInt(3, this.getSemester());
+            preparedStatement.setInt(4, this.getECTS());
+            preparedStatement.setInt(5, this.getGrade());
+            preparedStatement.setInt(6, this.getIdProfessor());
+            preparedStatement.setInt(7, this.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating course in database", e);
+        }
     }
 
     @Override
     public void delete() {
+        String query = "DELETE FROM courses WHERE id=?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
+            preparedStatement.setInt(1, this.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting course from database", e);
+        }
+    }
+    public void serializeToJson(ObservableList<Course> courses, String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File(filePath), courses);
+        } catch (IOException e) {
+            throw new RuntimeException("Error serializing csourses to JSON", e);
+        }
     }
 
     private int Id;

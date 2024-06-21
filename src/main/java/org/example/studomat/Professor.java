@@ -1,8 +1,11 @@
 package org.example.studomat;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,12 +75,42 @@ public class Professor extends Person implements ICrud<Professor>{
 
     @Override
     public void update() {
-
+        String query = "UPDATE professors SET name=?, surname=?, OIB=?, username=?, password=? WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, this.getName());
+            preparedStatement.setString(2, this.getSurname());
+            preparedStatement.setString(3, this.getOIB());
+            preparedStatement.setString(4, this.getUsername());
+            preparedStatement.setString(5, this.getPassword());
+            preparedStatement.setInt(6, this.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating professor in database", e);
+        }
     }
 
     @Override
     public void delete() {
+        String query = "DELETE FROM professors WHERE id=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, this.getId());
+            preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting professor from database", e);
+        }
+    }
+    public void serializeToJson(ObservableList<Professor> professors, String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File(filePath), professors);
+        } catch (IOException e) {
+            throw new RuntimeException("Error serializing professors to JSON", e);
+        }
     }
 
     @Override

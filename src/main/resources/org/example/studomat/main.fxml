@@ -18,7 +18,7 @@
                </image>
             </ImageView>
             <Hyperlink fx:id="hlAllStudents" layoutX="56.0" layoutY="83.0" onAction="#StudentList" text="All students" />
-            <Hyperlink fx:id="hlAllProfessors" layoutX="51.0" layoutY="120.0" onAction="#AddCourse" text="All professors" />
+            <Hyperlink fx:id="hlAllProfessors" layoutX="51.0" layoutY="120.0" onAction="#ProfessorList" text="All professors" />
             <Hyperlink fx:id="hlAllCourses" layoutX="58.0" layoutY="157.0" onAction="#AddCourse" text="All courses" />
             <Hyperlink fx:id="hlAddStudent" layoutX="53.0" layoutY="192.0" onAction="#addStudent" text="Add student" />
             <Hyperlink fx:id="hlAddProfessor" layoutX="48.0" layoutY="234.0" onAction="#addProfessor" text="Add professor" />

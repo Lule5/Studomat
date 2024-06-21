@@ -45,7 +45,6 @@ public class Student extends Person implements ICrud<Student> {
     @Override
     public void create() {
 
-
         String query = "INSERT INTO students (name, surname,OIB,JMBAG, username, password) VALUES (?,?,?, ?, ?, ?)";
 
         try {
@@ -130,7 +129,6 @@ public class Student extends Person implements ICrud<Student> {
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.writeValue(new File(filePath), students);
-            System.out.println("Studenata je serijalizirano u JSON datoteku: " + filePath);
         } catch (IOException e) {
             throw new RuntimeException("Error serializing students to JSON", e);
         }

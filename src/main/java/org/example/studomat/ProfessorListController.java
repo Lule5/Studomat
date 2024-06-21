@@ -1,22 +1,22 @@
 package org.example.studomat;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class StudentListController {
+public class ProfessorListController {
 
     @FXML
     private Button btnDelete;
 
     @FXML
-    private Button btnExport;
+    private Button btnEdit;
 
     @FXML
-    private Button btnEdit;
+    private Button btnExport;
 
     @FXML
     private Button btnUpdate;
@@ -28,10 +28,7 @@ public class StudentListController {
     private Label lblId;
 
     @FXML
-    private ListView<Student> listView;
-
-    @FXML
-    private TextField tfJMBAG;
+    private ListView<Professor> listView;
 
     @FXML
     private TextField tfName;
@@ -47,60 +44,54 @@ public class StudentListController {
 
     @FXML
     private TextField tfUsername;
-
-    @FXML
     public void initialize() {
-        Student student = new Student();
-        listView.setItems(student.all());
+        Professor professor  = new Professor();
+        listView.setItems(professor.all());
     }
 
-    public void selectedStudent(){
-        Student selectedStudent = listView.getSelectionModel().getSelectedItem();
-        lblId.setText(String.valueOf(selectedStudent.getId()));
-        tfName.setText(selectedStudent.getName());
-        tfSurname.setText(selectedStudent.getSurname());
-        tfOIB.setText(selectedStudent.getOIB());
-        tfJMBAG.setText(selectedStudent.getJMBAG());
-        tfUsername.setText(selectedStudent.getUsername());
-        tfPassword.setText(selectedStudent.getPassword());
+    public void selectedProfessor(){
+        Professor selectedProfessor = listView.getSelectionModel().getSelectedItem();
+        lblId.setText(String.valueOf(selectedProfessor.getId()));
+        tfName.setText(selectedProfessor.getName());
+        tfSurname.setText(selectedProfessor.getSurname());
+        tfOIB.setText(selectedProfessor.getOIB());
+        tfUsername.setText(selectedProfessor.getUsername());
+        tfPassword.setText(selectedProfessor.getPassword());
+    }
+    public void updateProfessor() throws Exception {
+        int id = Integer.parseInt(lblId.getText());
+        String name = tfName.getText();
+        String surname = tfSurname.getText();
+        String OIB = tfOIB.getText();
+        String username = tfUsername.getText();
+        String password = tfPassword.getText();
+        try {
+            Professor professor = new Professor(id, name, surname, OIB, username, password);
+            professor.update();
+            lblError.setText("The professor has been updated successfully");
+            initialize();
+        }catch (Exception e){
+            lblError.setText(e.getMessage());
+        }
     }
     private void clearForm(){
         lblId.setText("");
         tfName.clear();
         tfSurname.clear();
         tfOIB.clear();
-        tfJMBAG.clear();
         tfUsername.clear();
         tfPassword.clear();
     }
-    public void updateStudent() throws Exception {
+    public void deleteProfessor() throws Exception {
         int id = Integer.parseInt(lblId.getText());
         String name = tfName.getText();
         String surname = tfSurname.getText();
         String OIB = tfOIB.getText();
-        String JMBAG = tfJMBAG.getText();
         String username = tfUsername.getText();
         String password = tfPassword.getText();
         try {
-            Student student = new Student(id,name,surname,OIB,JMBAG,username,password);
-            student.update();
-            lblError.setText("The student has been updated successfully");
-            initialize();
-        }catch (Exception e){
-            lblError.setText(e.getMessage());
-        }
-    }
-    public void deleteStudent() throws Exception {
-        int id = Integer.parseInt(lblId.getText());
-        String name = tfName.getText();
-        String surname = tfSurname.getText();
-        String OIB = tfOIB.getText();
-        String JMBAG = tfJMBAG.getText();
-        String username = tfUsername.getText();
-        String password = tfPassword.getText();
-        try {
-            Student student = new Student(id,name,surname,OIB,JMBAG,username,password);
-            student.delete();
+            Professor professor = new Professor(id,name,surname,OIB,username,password);
+            professor.delete();
             lblError.setText("The student has been deleted successfully");
             initialize();
             clearForm();
@@ -108,16 +99,15 @@ public class StudentListController {
             lblError.setText(e.getMessage());
         }
     }
-    public void exportData(){
+    public void exportData() {
         try {
-            Student student = new Student();
-            String filePath = "students.json";
-            student.serializeToJson(student.all(), filePath);
+            Professor professor = new Professor();
+            String filePath = "professors.json";
+            professor.serializeToJson(professor.all(), filePath);
             lblError.setText("Data successfully exported");
         }catch (Exception e){
             lblError.setText(e.getMessage());
         }
-
     }
 
 }

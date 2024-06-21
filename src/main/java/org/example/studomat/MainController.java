@@ -72,4 +72,15 @@ public class MainController {
         stage.show();
 
     }
+    @FXML
+    public void ProfessorList() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ProfessorList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("Professors");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+
+    }
 }
