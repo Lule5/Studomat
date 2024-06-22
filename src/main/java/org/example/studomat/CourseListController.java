@@ -1,5 +1,7 @@
 package org.example.studomat;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -16,12 +18,12 @@ public class CourseListController {
     @FXML
     private Button btnUpdate;
     @FXML
-    private ListView<Course> listViiew;
+    private ListView<Course> listView;
     @FXML
     private ComboBox<Integer> comBoxECTS;
 
     @FXML
-    private ComboBox<String> comBoxFilter;
+    private ComboBox<Integer> comBoxFilter;
 
     @FXML
     private ComboBox<Integer> comBoxGrade;
@@ -43,7 +45,7 @@ public class CourseListController {
 
     @FXML
     private TextField tfName;
-
+    private ObservableList<Course> allCourses;
     public void initialize() {
         AddCourseController courseController = new AddCourseController();
         Professor professor = new Professor();
@@ -52,11 +54,13 @@ public class CourseListController {
         comBoxECTS.setItems(courseController.ECTS());
         comBoxSemester.setItems(courseController.Semester());
         comBoxProfessor.setItems(professor.all());
-        listViiew.setItems(course.all());
+        allCourses = course.all();
+        listView.setItems(allCourses);
+        comBoxFilter.setItems(courseController.Semester());
     }
     public void selectedCourse(){
         lblError.setText("");
-        Course selectedCourse = listViiew.getSelectionModel().getSelectedItem();
+        Course selectedCourse = listView.getSelectionModel().getSelectedItem();
         lblId.setText(String.valueOf(selectedCourse.getId()));
         tfName.setText(selectedCourse.getName());
         tfDescription.setText(selectedCourse.getDescription());
@@ -115,10 +119,28 @@ public class CourseListController {
         try {
             Course course = new Course();
             String filePath = "courses.json";
-            course.serializeToJson(course.all(), filePath);
+            course.serializeToJson(listView.getItems(), filePath);
             lblError.setText("Data successfully exported");
         }catch (Exception e){
             lblError.setText(e.getMessage());
         }
     }
+    public void filterCoursesBySemester() {
+        Integer selectedSemester = comBoxFilter.getValue();
+        if (selectedSemester != null) {
+            ObservableList<Course> filteredCourses = allCourses.filtered(course -> course.getSemester() == selectedSemester);
+            if (!filteredCourses.isEmpty()) {
+                listView.setItems(filteredCourses);
+                lblError.setText("");
+            } else {
+                listView.setItems(filteredCourses);
+                lblError.setText("No courses available for the selected semester.");
+            }
+        } else{
+            listView.setItems(allCourses);
+            lblError.setText("");
+        }
+
+    }
+
 }
